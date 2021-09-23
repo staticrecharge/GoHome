@@ -529,7 +529,7 @@ end
 
 
 --[[----------------------------------------------
-Settings Menu Creation
+Settings Menu
 ----------------------------------------------]]--
 function GH.CreateSettingsWindow()
 	local panelData = {
