@@ -189,17 +189,22 @@ Requires at least one string input, but can take as many extra inputs as needed.
 Each new input will be placed on a separate line.
 Only the first line will get the Go Home prefix. ]]--
 function GH.SendToChat(inputString, ...)
-	if not GH.AccountWide.SavedVars.chatMessages then return end
+	if not GH.AccountWide.SavedVars.chatMessages or inputString == false then return end
 	local Args = {...}
-	local outputString
-	outputString = GH.Const.chatPrefix .. GH.Const.chatTextColor .. inputString .. GH.Const.chatSuffix
-	CS:AddMessage(outputString)
+	local Output
+	table.insert(Output, GH.Const.chatPrefix)
+	table.insert(Output, GH.Const.chatTextColor)
+	table.insert(Output, inputString) 
+	table.insert(Output, GH.Const.chatSuffix)
 	if #Args > 0 then
 		for i,v in ipairs(Args) do
-			outputString = GH.Const.chatTextColor .. v .. GH.Const.chatSuffix
-			CS:AddMessage(outputString)
+		  table.insert(Output, "\n")
+			table.insert(Output, GH.Const.chatTextColor)
+	    table.insert(Output, v) 
+	    table.insert(Output, GH.Const.chatSuffix)
 		end
 	end
+	CS:AddMessage(table.concat(Output))
 end
 
 function GH.AbleToFastTravel()
