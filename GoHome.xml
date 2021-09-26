@@ -1,0 +1,22 @@
+<GuiXml>
+  <Controls>
+
+    <TopLevelControl name="GH_Panel" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="false">
+      <Dimensions x="400" y ="400" />
+      <Anchor point="CENTER" relativeTo="GuiRoot" relativePoint="CENTER" offsetX="0" offsetY="0" />
+      <Controls>
+
+        <Backdrop name="$(parent)BG" centerColor="AA000000" edgeColor="F49B42">
+          <AnchorFill />
+        </Backdrop>
+
+        <Label name="$(parent)Title" font="ZoFontWinT1" color="F49B42" text="Go Home - Permissions Editor" horizontalAlignment="CENTER" verticalAlignment="CENTER">
+          <Dimensions x="400" y="30" />
+          <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="0" offsetY="0" />
+        </Label>
+
+      </Controls>
+    </TopLevelControl>
+
+  </Controls>
+</GuiXml>

@@ -175,7 +175,6 @@ GH.HouseData = {}
 GH.GuildIndexes = {}
 GH.GuildNames = {}
 GH.hotkeyIndex = 1
-GH.permIndex = nil
 GH.settingsPanelCreated = false
 
 
@@ -191,7 +190,7 @@ Only the first line will get the Go Home prefix. ]]--
 function GH.SendToChat(inputString, ...)
 	if not GH.AccountWide.SavedVars.chatMessages or inputString == false then return end
 	local Args = {...}
-	local Output
+	local Output = {}
 	table.insert(Output, GH.Const.chatPrefix)
 	table.insert(Output, GH.Const.chatTextColor)
 	table.insert(Output, inputString) 
@@ -440,6 +439,17 @@ function GH.GetListPermNames(id, permGroup)
 	return Names
 end
 
+function GH.GetListPermIndexes(id, permGroup)
+	local num = GetNumHousingPermissions(id, permGroup)
+	local Indexes = {}
+	if num > 0 then
+		for i=1, num do
+			table.insert(Indexes, i)
+		end
+	end
+	return Indexes
+end
+
 
 --[[----------------------------------------------
 Keybind Functions
@@ -577,7 +587,7 @@ function GH.CreateSettingsWindow()
 		choices = {[1] = 1, [2] = 2, [3] = 3, [4] = 4, [5] = 5, [6] = 6, [7] = 7, [8] = 8, [9] = 9, [10] = 10,},
 		getFunc = function() return GH.hotkeyIndex end,
 		setFunc = function(var) GH.hotkeyIndex = var end,
-		width = "full",
+		width = "half",
 		scrollable = true,
 		tooltip = "Select which hotkey to edit.",
 	}
@@ -688,102 +698,24 @@ function GH.CreateSettingsWindow()
 	}
 	i = i + 1
 	optionsData[i] = {
+		type = "button",
+    name = "Clear Key Binding",
+    func = function() GH.AccountWide.SavedVars[GH.hotkeyIndex] = GH.AccountWide.Defaults[GH.hotkeyIndex] end,
+    tooltip = "",
+    width = "half",
+	}
+	i = i + 1
+	optionsData[i] = {
 		type = "header",
 		name = "House Permissions",
 	}
 	i = i + 1
 	optionsData[i] = {
-		type = "dropdown",
-		name = "House Permissions to Edit",
-		choices = GH.GetNames(),
-		choicesValues = GH.GetOwnedHouseIDs(),
-		sort = "name-up",
-		getFunc = function() return GH.permIndex end,
-		setFunc = function(var) GH.permIndex = var GH_HouseIndvNameDropdown_LAM:UpdateChoices(GH.GetListPermNames(GH.permIndex, HOUSE_PERMISSION_USER_GROUP_INDIVIDUAL)) end,
-		width = "full",
-		scrollable = true,
-		tooltip = "",
-		reference = "GH_HousePermDropdown_LAM",
-	}
-	i = i + 1
-	optionsData[i] = {
-		type = "dropdown",
-		name = "Default Visitor Access",
-		choices = GH.Const.AccessChoicesList,
-		choicesValues = GH.Const.AccessValuesList,
-		sort = "value-up",
-		getFunc = function() return GetHousingPermissionPresetType(GH.permIndex, HOUSE_PERMISSION_USER_GROUP_GENERAL, 1) end,
-		setFunc = function(var) GH.SetDefaultVisitorAccess(var, false) end,
-		width = "full",
-		scrollable = true,
-		tooltip = "",
-		disabled = function() return GH.IsPermIndexSelected() end,
-	}
-	i = i + 1
-	optionsData[i] = {
-		type = "submenu",
-		name = "Individual Visitor Access",
-		tooltip = "",
-		disabled = function() return GH.IsPermIndexSelected() end,
-		controls = {
-			[1] = {
-				type = "header",
-				name = "Add Player",
-			},
-			[2] = {
-				type = "editbox",
-				name = "@name",
-				getFunc = function() end,
-				setFunc = function(text) end,
-				tooltip = "",
-				isMultiline = false,
-				isExtraWide = false,
-				textType = TEXT_TYPE_ALL, 
-				width = "half",
-			},
-			[3] = {
-				type = "dropdown",
-				name = "Permissions",
-				choices = GH.Const.AccessChoicesList,
-		    choicesValues = GH.Const.AccessValuesList,
-				sort = "name-up",
-				getFunc = function() return GetHousingPermissionPresetType(GH.permIndex, HOUSE_PERMISSION_USER_GROUP_INDIVIDUAL, 1) end,
-				setFunc = function(var) end,
-				width = "half",
-				scrollable = true,
-				tooltip = "",
-			},
-			[4] = {
-				type = "button",
-				name = "Add",
-				func = function() end,
-				tooltip = "",
-				width = "full",
-			},
-			[5] = {
-				type = "header",
-				name = "Remove Player",
-			},
-			[6] = {
-				type = "dropdown",
-				name = "Player",
-				choices = GH.GetListPermNames(GH.permIndex, HOUSE_PERMISSION_USER_GROUP_INDIVIDUAL),
-				sort = "name-up",
-				getFunc = function() end,
-				setFunc = function(var) end,
-				width = "half",
-				scrollable = true,
-				tooltip = "",
-				reference = "GH_HouseRemoveIndvNameDropdown_LAM",
-			},
-			[7] = {
-				type = "button",
-				name = "Remove",
-				func = function() end,
-				tooltip = "",
-				width = "half",
-			},
-		},
+		type = "button",
+    name = "Open Permissions Editor",
+    func = function() end,
+    tooltip = "",
+    width = "full",
 	}
 	i = i + 1
 	optionsData[i] = {
@@ -820,13 +752,12 @@ function GH.UpdateMenu()
 	GH_AccountHouseDropdown_LAM:UpdateChoices(GH.GetAllHouseNames(), GH.GetAllHouseIDs())
 	GH_CharacterHouseDropdown_LAM:UpdateChoices(GH.GetNames(), GH.GetOwnedHouseIDs())
 	GH_SpecificHouseDropdown_LAM:UpdateChoices(GH.GetNames(), GH.GetOwnedHouseIDs())
-	GH_HousePermDropdown_LAM:UpdateChoices(GH.GetNames(), GH.GetOwnedHouseIDs())
 end
 
 function GH.LAMPanelCreated(panel)
 	if panel ~= GH.LAMSettingsPanel then return end
 	GH.settingsPanelCreated = true
-	GH.UpdateMenu()
+	--GH.UpdateMenu()
 end
 
 
