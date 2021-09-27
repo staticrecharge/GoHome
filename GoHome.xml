@@ -1,19 +1,129 @@
 <GuiXml>
   <Controls>
 
-    <TopLevelControl name="GH_Panel" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="false">
-      <Dimensions x="400" y ="400" />
-      <Anchor point="CENTER" relativeTo="GuiRoot" relativePoint="CENTER" offsetX="0" offsetY="0" />
+    <!-- Virtual Definitions -->
+    <Control name="GHButtonTemplate" mouseEnabled="true" virtual="true">
       <Controls>
-
-        <Backdrop name="$(parent)BG" centerColor="AA000000" edgeColor="F49B42">
+        
+        <Backdrop name="$(parent)BG" centerColor="00000000" edgeColor="00000000" layer="1" level="0">
           <AnchorFill />
         </Backdrop>
 
-        <Label name="$(parent)Title" font="ZoFontWinT1" color="F49B42" text="Go Home - Permissions Editor" horizontalAlignment="CENTER" verticalAlignment="CENTER">
-          <Dimensions x="400" y="30" />
-          <Anchor point="TOP" relativeTo="$(parent)" relativePoint="TOP" offsetX="0" offsetY="0" />
+        <Button name="$(parent)Button" font="ZoFontWinH3" horizontalAlignment="CENTER" verticalAlignment="CENTER" clickSound="Click">
+          <AnchorFill />
+          <PressedOffset x="1" y="1" />
+          <FontColors normalColor="FFFFFF" mouseOverColor="F49B42" pressedColor="F49B42" />
+          <OnMouseEnter> self:GetParent():GetNamedChild("BG"):SetCenterColor(0.957, 0.608, 0.259, 0.5) </OnMouseEnter>
+          <OnMouseExit> self:GetParent():GetNamedChild("BG"):SetCenterColor(0, 0, 0, 0) </OnMouseExit>
+        </Button>
+
+      </Controls>
+    </Control>
+
+    <Control name="GHTabTemplate" mouseEnabled="true" virtual="true">
+      <Controls>
+        
+        <Backdrop name="$(parent)BG" centerColor="00000000" edgeColor="00000000" layer="1" level="0">
+          <AnchorFill />
+        </Backdrop>
+
+        <Button name="$(parent)Button" font="ZoFontWinH3" horizontalAlignment="RIGHT" verticalAlignment="CENTER" clickSound="Click">
+          <AnchorFill />
+          <PressedOffset x="-1" y="1" />
+          <FontColors normalColor="FFFFFF" mouseOverColor="F49B42" pressedColor="F49B42" />
+          <OnMouseEnter> self:GetParent():GetNamedChild("BG"):SetCenterColor(0.957, 0.608, 0.259, 0.5) </OnMouseEnter>
+          <OnMouseExit> self:GetParent():GetNamedChild("BG"):SetCenterColor(0, 0, 0, 0) </OnMouseExit>
+        </Button>
+
+      </Controls>
+    </Control>
+
+    <!-- Permissions Edit Box Main Window -->
+    <TopLevelControl name="GH_Panel" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="false">
+      <Dimensions x="512" y ="256" />
+      <Anchor point="CENTER" relativeTo="GuiRoot" relativePoint="CENTER" offsetX="0" offsetY="0" />
+      <Controls>
+
+        <Backdrop name="$(parent)BG" centerColor="00000000" edgeColor="F49B42" layer="0" level="0">
+          <AnchorFill />
+        </Backdrop>
+
+        <Texture name="$(parent)BGTexture" textureFile="/esoui/art/store/pc_collections_housing_ebonheartpactmanor.dds" textureFileReleaseOption="RELEASE_TEXTURE_AT_ZERO_REFERENCES" layer="0" level="0">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="1" offsetY="1" />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-1" offsetY="-1" />
+          <TextureCoords left="0" right="0.68" top="0" bottom="0.68" />
+        </Texture>
+
+        <Label name="$(parent)Title" font="ZoFontWinH2" color="F49B42" text="Go Home - Permissions Editor" horizontalAlignment="CENTER" verticalAlignment="CENTER" layer="1" level="0">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="2" offsetY="2" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-2" offsetY="2" />
         </Label>
+
+        <Control name="$(parent)CloseWindow" inherits="GHButtonTemplate" layer="1" level="0">
+          <Dimensions x="25" y="25" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-2" offsetY="2" />
+          <OnInitialized> self:GetNamedChild("Button"):SetText("X") self:GetNamedChild("Button"):SetHandler("OnClicked", function() GH_Panel:SetHidden(true) end) </OnInitialized>
+        </Control>
+
+        <Control name="$(parent)GeneralSettingsTab" inherits="GHTabTemplate" layer="1" level="0">
+          <Dimensions x="100" y="25" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="2" offsetY="61.5" />
+          <OnInitialized> self:GetNamedChild("Button"):SetText("General") </OnInitialized>
+        </Control>
+
+        <Control name="$(parent)VisitorSettingsTab" inherits="GHTabTemplate" layer="1" level="0">
+          <Dimensions x="100" y="25" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)GeneralSettingsTab" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
+          <OnInitialized> self:GetNamedChild("Button"):SetText("Visitor") </OnInitialized>
+        </Control>
+
+        <Control name="$(parent)BanlistSettingsTab" inherits="GHTabTemplate" layer="1" level="0">
+          <Dimensions x="100" y="25" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)VisitorSettingsTab" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
+          <OnInitialized> self:GetNamedChild("Button"):SetText("Banlist") </OnInitialized>
+        </Control>
+
+        <Control name="$(parent)GuildSettingsTab" inherits="GHTabTemplate" layer="1" level="0">
+          <Dimensions x="100" y="25" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)BanlistSettingsTab" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
+          <OnInitialized> self:GetNamedChild("Button"):SetText("Guild") </OnInitialized>
+        </Control>
+
+        <Control name="$(parent)GuildBanlistSettingsTab" inherits="GHTabTemplate" layer="1" level="0">
+          <Dimensions x="100" y="25" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)GuildSettingsTab" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
+          <OnInitialized> self:GetNamedChild("Button"):SetText("Guild Ban") </OnInitialized>
+        </Control>
+
+        <Control name="$(parent)SettingsBox" layer="1" level="0">
+          <Anchor point="TOPLEFT" relativeTo="$(parent)GeneralSettingsTab" relativePoint="TOPRIGHT" offsetX="4" offsetY="0" />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-4" offsetY="-61.5" />
+          <Controls>
+
+            <Backdrop name="$(parent)BG" centerColor="77000000" edgeColor="77000000" layer="1" level="0">
+              <AnchorFill />
+            </Backdrop>
+
+          </Controls>
+        </Control>
+
+        <Control name="$(parent)Add" inherits="GHButtonTemplate" layer="1" level="0">
+          <Dimensions x="150" y="25" />
+          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)" relativePoint="BOTTOMLEFT" offsetX="105" offsetY="-4" />
+          <OnInitialized> self:GetNamedChild("Button"):SetText("Add") </OnInitialized>
+        </Control>
+
+        <Control name="$(parent)Load" inherits="GHButtonTemplate" layer="1" level="0">
+          <Dimensions x="150" y="25" />
+          <Anchor point="BOTTOMLEFT" relativeTo="$(parent)Add" relativePoint="BOTTOMRIGHT" offsetX="2" offsetY="0" />
+          <OnInitialized> self:GetNamedChild("Button"):SetText("Load Permissions") </OnInitialized>
+        </Control>
+
+        <Control name="$(parent)ReloadUI" inherits="GHButtonTemplate" layer="1" level="0">
+          <Dimensions x="100" y="25" />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="102" offsetY="-2" />
+          <OnInitialized> self:GetNamedChild("Button"):SetText("Reload UI") self:GetNamedChild("Button"):SetHandler("OnClicked", function() ReloadUI("ingame") end) </OnInitialized>
+        </Control>
 
       </Controls>
     </TopLevelControl>

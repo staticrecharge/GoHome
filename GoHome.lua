@@ -31,7 +31,7 @@ local CM = CALLBACK_MANAGER
 Constant and Variable Declarations
 ----------------------------------------------]]--
 GH.Const = {
-	chatPrefix = "|cf49b42[Go Home]:|r ",
+	chatPrefix = "|cF49B42[Go Home]:|r ",
 	chatTextColor = "|cffffff",
 	chatSuffix = "|r",
 	HotkeyType = {GetString(GO_HOME_HotkeyTypePrimary), GetString(GO_HOME_HotkeyTypeSpecific), GetString(GO_HOME_HotkeyTypeCharacter), GetString(GO_HOME_HotkeyTypeAccountName), GetString(GO_HOME_HotkeyTypeGuild),
@@ -270,11 +270,15 @@ function GH.UpdateHouseData()
 		for _, subCategoryData in categoryData:SubcategoryIterator({GH.IsNotHousingCategory}) do
 			for _, subCatCollectibleData in subCategoryData:CollectibleIterator({GH.IsHouse}) do
 				if not subCatCollectibleData:IsBlocked() then
+					local name, description, icon, deprecatedLockedIcon, unlocked, purchasable, isActive, categoryType, hint = GetCollectibleInfo(subCatCollectibleData:GetId())
 					GH.HouseData[subCatCollectibleData:GetReferenceId()] = {
-						name = subCatCollectibleData:GetFormattedName(),
-						unlocked = subCatCollectibleData:IsUnlocked(),
+						name = name,
+						description = description,
 						nickname = subCatCollectibleData:GetFormattedNickname(),
-						collectibleID = subCatCollectibleData:GetId()
+						unlocked = unlocked,
+						icon = icon,
+						collectibleID = subCatCollectibleData:GetId(),
+						texture = GetHousePreviewBackgroundImage(subCatCollectibleData:GetReferenceId()),
 					}
 				end
 			end
@@ -448,6 +452,17 @@ function GH.GetListPermIndexes(id, permGroup)
 		end
 	end
 	return Indexes
+end
+
+
+--[[----------------------------------------------
+Housing Permissions Functions
+----------------------------------------------]]--
+function GH.PermissionsEditMenuHide()
+	GH_Panel:SetHidden(not GH_Panel:IsHidden())
+	if not GH_Panel:IsHidden() then
+		GH_PanelBGTexture:SetTexture(GH.HouseData[GetCurrentZoneHouseId()].texture)
+	end
 end
 
 
@@ -788,6 +803,7 @@ function GH.Initialize()
 	SLASH_COMMANDS["/ghdebug"] = GH.Debug
 	SLASH_COMMANDS["/ghcurrent"] = GH.GetCurrentHouseInfo
 	SLASH_COMMANDS["/ghlist"] = GH.ListHotkeyedHouses
+	SLASH_COMMANDS["/ghperm"] = GH.PermissionsEditMenuHide
 	
 	EM:UnregisterForEvent(GH.addonName, EVENT_ADD_ON_LOADED)
 	EM:RegisterForEvent(GH.addonName, EVENT_COLLECTIBLE_NOTIFICATION_NEW, GH.OnCollectibleNotificationNew)
