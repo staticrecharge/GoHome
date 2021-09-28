@@ -25,11 +25,21 @@ local CDM = ZO_COLLECTIBLE_DATA_MANAGER
 local CS = CHAT_SYSTEM
 local EM = EVENT_MANAGER
 local CM = CALLBACK_MANAGER
+local WM = WINDOW_MANAGER
 
 
 --[[----------------------------------------------
 Constant and Variable Declarations
 ----------------------------------------------]]--
+GH_COLOR_MAIN = F49B42
+GH_COLOR_BORDER = F49B42
+GH_COLOR_HIGHLIGHT = ZO_ColorDef:New("F49B42")
+GH_COLOR_TEXT_NORMAL = ZO_ColorDef:New("FFFFFF")
+GH_COLOR_HIGHLIGHT_R = 0.957
+GH_COLOR_HIGHLIGHT_G = 0.608
+GH_COLOR_HIGHLIGHT_B = 0.259
+GH_COLOR_HIGHLIGHT_A = 0.5
+
 GH.Const = {
 	chatPrefix = "|cF49B42[Go Home]:|r ",
 	chatTextColor = "|cffffff",
@@ -176,6 +186,8 @@ GH.GuildIndexes = {}
 GH.GuildNames = {}
 GH.hotkeyIndex = 1
 GH.settingsPanelCreated = false
+GH.housePermID = nil
+GH.currentTab = nil
 
 
 --[[----------------------------------------------
@@ -461,8 +473,40 @@ Housing Permissions Functions
 function GH.PermissionsEditMenuHide()
 	GH_Panel:SetHidden(not GH_Panel:IsHidden())
 	if not GH_Panel:IsHidden() then
-		GH_PanelBGTexture:SetTexture(GH.HouseData[GetCurrentZoneHouseId()].texture)
+		local house = GetCurrentZoneHouseId()
+		if house ~= 0 then
+			for i,v in pairs(GH.HouseSelectDropDown.m_sortedItems) do
+				if v.name == GH.HouseData[house].name then
+					GH.HouseSelectDropDown:SetSelected(i)
+					break
+				end
+			end
+		end
 	end
+end
+
+function GH.HouseSelectDropDownInit()
+	local profileComboBox = WM:CreateControlFromVirtual("GH_PanelHouseSelectDropdown", GH_Panel, "GH_DropdownTemplate")
+	profileComboBox:ClearAnchors()
+	profileComboBox:SetDimensions(256, 30)
+	profileComboBox:SetAnchor(TOP, GH_Panel, TOP, 0, 30)
+	GH.HouseSelectDropDown = ZO_ComboBox_ObjectFromContainer(profileComboBox)
+	GH.UpdateDropDownList()
+end
+
+function GH.UpdateDropDownList()
+	GH.HouseSelectDropDown:ClearItems()
+	for i,v in ipairs(GH.HouseData) do
+		if v.unlocked then
+			local itemEntry = GH.HouseSelectDropDown:CreateItemEntry(v.name, function() GH_PanelBGTexture:SetTexture(GH.HouseData[i].texture) GH.housePermID = i end)
+			GH.HouseSelectDropDown:AddItem(itemEntry)
+		end
+	end
+	GH.HouseSelectDropDown:SelectFirstItem()
+end
+
+function GH_CHANGE_TAB(tab)
+	GH.SendToChat(tab:GetName())
 end
 
 
@@ -786,6 +830,7 @@ function GH.Initialize()
 	GH.UpdateGuildInfo()
 	GH.UpdateHouseData()
 	GH.CreateSettingsWindow()
+	GH.HouseSelectDropDownInit()
 	
 	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_1", GetString(GO_HOME_HotkeyLabel) .. "1")
 	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_2", GetString(GO_HOME_HotkeyLabel) .. "2")

@@ -16,7 +16,7 @@
 
 # This Add-on is not to be duplicated / replicated / borrowed / ported or redistributed without my expresss permission.
 
-# Special thanks to Vestamali, ChirpingBird and renbyrd for helping me test things. Also thank you Lari for the Japanese translations.
+# Special thanks to Vestamali, ChirpingBird, renbyrd and Blaize for helping me test things. Also thank you Lari for the Japanese translations.
 
 Languages/en.lua
 Languages/$(language).lua
