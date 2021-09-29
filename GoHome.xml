@@ -2,6 +2,8 @@
   <Controls>
 
     <!-- Virtual Definitions -->
+    
+    <!-- Button Template -->
     <Button name="GHButtonTemplate" font="ZoFontWinH3" horizontalAlignment="CENTER" verticalAlignment="CENTER" clickSound="Click" virtual="true">
       <PressedOffset x="1" y="1" />
       <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
@@ -16,6 +18,7 @@
       </Controls>
     </Button>
 
+    <!-- Tab Template -->
     <Button name="GHTabTemplate" font="ZoFontWinH3" horizontalAlignment="RIGHT" verticalAlignment="CENTER" clickSound="Click" virtual="true">
       <Dimensions x="100" y="25" />
       <PressedOffset x="-1" y="1" />
@@ -30,12 +33,19 @@
 
       </Controls>
     </Button>
-
+    
+    <!-- Dropdown Template -->
     <Control name="GH_DropdownTemplate" inherits="ZO_ScrollableComboBox" virtual="true" layer="1" level="0">
       <OnInitialized>
         ZO_ScrollableComboBox:New(self)
       </OnInitialized>
     </Control>
+    
+    <!-- Row Info Template -->
+    <Control name="GH_RowTemplate" virtual="true" layer="1" level="1">
+      <Dimensions x="410" y="163" />
+    </Control>
+    
 
     <!-- Permissions Edit Box Main Window -->
     <TopLevelControl name="GH_Panel" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="false">
@@ -73,8 +83,8 @@
 
         <!-- Settings -->
         <Control name="$(parent)Settings" layer="1" level="0">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="106" offsetY="61.5" />
-          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-4" offsetY="-32.5" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="106" offsetY="61" />
+          <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-4" offsetY="-32" />
           <Controls>
 
             <!-- Backdrop for settings tabs -->
