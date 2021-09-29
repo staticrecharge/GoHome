@@ -42,7 +42,7 @@
     </Control>
     
     <!-- Row Template -->
-    <Button name="GH_RowTemplate" text="@name/guild" font="ZoFontWinH3" horizontalAlignment="LEFT" verticalAlignment="CENTER" clickSound="Click" virtual="true" layer="2" level="1">
+    <Button name="GH_RowTemplate" text="@name/guild" font="ZoFontGame" horizontalAlignment="LEFT" verticalAlignment="CENTER" clickSound="Click" virtual="true" layer="2" level="1">
       <Dimensions x="410" y="30" />
       <PressedOffset x="-1" y="1" />
       <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
