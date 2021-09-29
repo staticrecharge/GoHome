@@ -412,7 +412,7 @@ Handles traveling to various houses.
 Overloaded function:
 - No arguments = Travel to the player's primary house.
 - @name only = Travel to specified player's primary house.
-- HouseID only = Travel to the player's specified house.
+- HouseID, outside = Travel to the player's specified house (inside or outside).
 - @name and houseID = Travel to the specified house of the specified player. ]]--
 function GH.Travel(...)
 	Args = {...}
