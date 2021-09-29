@@ -17,6 +17,7 @@
     </Button>
 
     <Button name="GHTabTemplate" font="ZoFontWinH3" horizontalAlignment="RIGHT" verticalAlignment="CENTER" clickSound="Click" virtual="true">
+      <Dimensions x="100" y="25" />
       <PressedOffset x="-1" y="1" />
       <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
       <OnMouseEnter> self:GetNamedChild("BG"):SetHidden(false) </OnMouseEnter>
@@ -70,51 +71,48 @@
           <OnClicked> GH_Panel:SetHidden(true) </OnClicked>
         </Button>
 
-        <!-- General Tab Button -->
-        <Button name="$(parent)GeneralTab" inherits="GHTabTemplate" text="General" layer="1" level="0">
-          <Dimensions x="100" y="25" />
-          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="2" offsetY="61.5" />
-          <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
-        </Button>
-
-        <!-- Visitor Tab Button -->
-        <Button name="$(parent)VisitorTab" inherits="GHTabTemplate" text="Visitor" layer="1" level="0">
-          <Dimensions x="100" y="25" />
-          <Anchor point="TOPLEFT" relativeTo="$(parent)GeneralTab" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
-          <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
-        </Button>
-
-        <!-- Ban List Tab Button -->
-        <Button name="$(parent)BanListTab" inherits="GHTabTemplate" text="Ban List" layer="1" level="0">
-          <Dimensions x="100" y="25" />
-          <Anchor point="TOPLEFT" relativeTo="$(parent)VisitorTab" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
-          <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
-        </Button>
-
-        <!-- Guild Tab Button -->
-        <Button name="$(parent)GuildTab" inherits="GHTabTemplate" text="Guild" layer="1" level="0">
-          <Dimensions x="100" y="25" />
-          <Anchor point="TOPLEFT" relativeTo="$(parent)BanListTab" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
-          <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
-        </Button>
-
-        <!-- Guild Ban Tab Button -->
-        <Button name="$(parent)GuildBanTab" inherits="GHTabTemplate" text="Guild Ban" layer="1" level="0">
-          <Dimensions x="100" y="25" />
-          <Anchor point="TOPLEFT" relativeTo="$(parent)GuildTab" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
-          <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
-        </Button>
-
         <!-- Settings -->
         <Control name="$(parent)Settings" layer="1" level="0">
-          <Anchor point="TOPLEFT" relativeTo="$(parent)GeneralTab" relativePoint="TOPRIGHT" offsetX="4" offsetY="0" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="106" offsetY="61.5" />
           <Anchor point="BOTTOMRIGHT" relativeTo="$(parent)" relativePoint="BOTTOMRIGHT" offsetX="-4" offsetY="-32.5" />
           <Controls>
 
+            <!-- Backdrop for settings tabs -->
             <Backdrop name="$(parent)BG" centerColor="77000000" edgeColor="77000000" layer="1" level="0">
               <AnchorFill />
             </Backdrop>
 
+            <!-- General Tab Button -->
+            <Button name="$(parent)General" inherits="GHTabTemplate" text="General" layer="1" level="0">
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="-4" offsetY="0" />
+              <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
+            </Button>
+
+            <!-- Visitor Tab Button -->
+            <Button name="$(parent)Visitor" inherits="GHTabTemplate" text="Visitor" layer="1" level="0">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)General" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
+              <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
+            </Button>
+
+            <!-- Ban List Tab Button -->
+            <Button name="$(parent)BanList" inherits="GHTabTemplate" text="Ban List" layer="1" level="0">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)Visitor" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
+              <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
+            </Button>
+
+            <!-- Guild Tab Button -->
+            <Button name="$(parent)Guild" inherits="GHTabTemplate" text="Guild" layer="1" level="0">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)BanList" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
+              <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
+            </Button>
+
+            <!-- Guild Ban Tab Button -->
+            <Button name="$(parent)GuildBan" inherits="GHTabTemplate" text="Guild Ban" layer="1" level="0">
+              <Anchor point="TOPLEFT" relativeTo="$(parent)Guild" relativePoint="BOTTOMLEFT" offsetX="0" offsetY="2" />
+              <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
+            </Button>
+
+            <!-- General Settings Tab -->
             <Control name="$(parent)GeneralTab" layer="1" level="1">
               <AnchorFill />
               <Controls>
@@ -126,11 +124,48 @@
               </Controls>
             </Control>
 
+            <!-- Visitor Settings Tab -->
             <Control name="$(parent)VisitorTab" hidden="true" layer="1" level="1">
               <AnchorFill />
               <Controls>
 
                 <Label name="$(parent)Label" font="ZoFontWinH3" text="Visitor Tab">
+                  <AnchorFill />
+                </Label>
+                
+              </Controls>
+            </Control>
+
+            <!-- Ban List Settings Tab -->
+            <Control name="$(parent)BanListTab" hidden="true" layer="1" level="1">
+              <AnchorFill />
+              <Controls>
+
+                <Label name="$(parent)Label" font="ZoFontWinH3" text="Ban List Tab">
+                  <AnchorFill />
+                </Label>
+                
+              </Controls>
+            </Control>
+
+            <!-- Guild Settings Tab -->
+            <Control name="$(parent)GuildTab" hidden="true" layer="1" level="1">
+              <AnchorFill />
+              <Controls>
+
+                <Label name="$(parent)Label" font="ZoFontWinH3" text="Guild Tab">
+                  <AnchorFill />
+                </Label>
+                
+              </Controls>
+            </Control>
+
+            <!-- Guild Ban Settings Tab -->
+            <Control name="$(parent)GuildBanTab" hidden="true" layer="1" level="1">
+              <AnchorFill />
+              <Controls>
+
+                <Label name="$(parent)Label" font="ZoFontWinH3" text="Guild Ban Tab">
                   <AnchorFill />
                 </Label>
                 

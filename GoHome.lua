@@ -187,7 +187,6 @@ GH.GuildNames = {}
 GH.hotkeyIndex = 1
 GH.settingsPanelCreated = false
 GH.housePermID = nil
-GH.currentTab = nil
 
 
 --[[----------------------------------------------
@@ -470,6 +469,13 @@ end
 --[[----------------------------------------------
 Housing Permissions Functions
 ----------------------------------------------]]--
+function GH.PermissionsEditMenuInit()
+	GH.CurrentTab = WM:GetControlByName("GH_PanelSettingsGeneral")
+	GH.CurrentTab:SetHandler("OnMouseExit", function() end)
+	GH.CurrentTab:GetNamedChild("BG"):SetHidden(false)
+	GH.CurrentTab:SetState(BSTATE_PRESSED, true)
+end
+
 function GH.PermissionsEditMenuHide()
 	GH_Panel:SetHidden(not GH_Panel:IsHidden())
 	if not GH_Panel:IsHidden() then
@@ -496,7 +502,7 @@ end
 
 function GH.UpdateDropDownList()
 	GH.HouseSelectDropDown:ClearItems()
-	for i,v in ipairs(GH.HouseData) do
+	for i,v in pairs(GH.HouseData) do
 		if v.unlocked then
 			local itemEntry = GH.HouseSelectDropDown:CreateItemEntry(v.name, function() GH_PanelBGTexture:SetTexture(GH.HouseData[i].texture) GH.housePermID = i end)
 			GH.HouseSelectDropDown:AddItem(itemEntry)
@@ -506,7 +512,16 @@ function GH.UpdateDropDownList()
 end
 
 function GH_CHANGE_TAB(tab)
-	GH.SendToChat(tab:GetName())
+	if GH.CurrentTab == tab then return end
+	tab:SetHandler("OnMouseExit", function() end)
+	tab:GetNamedChild("BG"):SetHidden(false)
+	tab:SetState(BSTATE_PRESSED, true)
+	WM:GetControlByName(GH.CurrentTab:GetName() .. "Tab"):SetHidden(true)
+	WM:GetControlByName(tab:GetName() .. "Tab"):SetHidden(false)
+	GH.CurrentTab:SetHandler("OnMouseExit", function(self) self:GetNamedChild("BG"):SetHidden(true) end)
+	GH.CurrentTab:GetNamedChild("BG"):SetHidden(true)
+	GH.CurrentTab:SetState(BSTATE_NORMAL, false)
+	GH.CurrentTab = tab
 end
 
 
@@ -772,7 +787,7 @@ function GH.CreateSettingsWindow()
 	optionsData[i] = {
 		type = "button",
     name = "Open Permissions Editor",
-    func = function() end,
+    func = function() GH.PermissionsEditMenuHide() SLASH_COMMANDS["/ghmenu"]("") end,
     tooltip = "",
     width = "full",
 	}
@@ -831,6 +846,7 @@ function GH.Initialize()
 	GH.UpdateHouseData()
 	GH.CreateSettingsWindow()
 	GH.HouseSelectDropDownInit()
+	GH.PermissionsEditMenuInit()
 	
 	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_1", GetString(GO_HOME_HotkeyLabel) .. "1")
 	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_2", GetString(GO_HOME_HotkeyLabel) .. "2")
