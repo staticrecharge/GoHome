@@ -42,9 +42,26 @@
     </Control>
     
     <!-- Row Info Template -->
-    <Control name="GH_RowTemplate" virtual="true" layer="1" level="1">
-      <Dimensions x="410" y="163" />
-    </Control>
+    <Button name="GH_RowTemplate" text="@name/guild" font="ZoFontWinH3" horizontalAlignment="LEFT" verticalAlignment="CENTER" clickSound="Click" virtual="true" layer="2" level="1">
+      <Dimensions x="410" y="30" />
+      <PressedOffset x="-1" y="1" />
+      <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
+      <OnMouseEnter> self:GetNamedChild("BG"):SetHidden(false) </OnMouseEnter>
+      <OnMouseExit> self:GetNamedChild("BG"):SetHidden(true) </OnMouseExit>
+      <OnClicked>  </OnClicked>
+      <Controls>
+        
+        <Backdrop name="$(parent)BG" centerColor="F49B42" edgeColor="F49B42" hidden="true" layer="2" level="0">
+          <AnchorFill />
+        </Backdrop>
+        
+        <Label name="$(parent)Access" text="access" font="ZoFontWinH3" horizontalAlignment="LEFT" verticalAlignment="CENTER">
+          <Dimensions x="100" y="30" />
+          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0" />
+        </Label>
+        
+      </Controls>
+    </Button>
     
 
     <!-- Permissions Edit Box Main Window -->
