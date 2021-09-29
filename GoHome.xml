@@ -55,7 +55,7 @@
           <AnchorFill />
         </Backdrop>
         
-        <Label name="$(parent)Access" text="access" font="ZoFontWinH3" horizontalAlignment="LEFT" verticalAlignment="CENTER">
+        <Label name="$(parent)Access" text="access" font="ZoFontWinH3" horizontalAlignment="LEFT" verticalAlignment="CENTER" layer="2" level="1">
           <Dimensions x="100" y="30" />
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0" />
         </Label>
