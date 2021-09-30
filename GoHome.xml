@@ -48,7 +48,7 @@
       <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
       <OnMouseEnter>
         self:GetNamedChild("BG"):SetHidden(false)
-        self:GetNamedChild("BG"):SetHidden(false)
+        self:GetNamedChild("Access"):SetState(false)
       </OnMouseEnter>
       <OnMouseExit> self:GetNamedChild("BG"):SetHidden(true) </OnMouseExit>
       <OnClicked>  </OnClicked>
