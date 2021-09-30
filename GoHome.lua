@@ -52,7 +52,8 @@ GH.Const = {
 		guild = GetString(GO_HOME_HotkeyTypeGuild),
 	},
 	AccessChoicesList = {[1] = "No Access", [2] = "Visitor", [3] = "Limited Visitor", [4] = "Decorator"},
-	AccessValuesList = {HOUSE_PERMISSION_PRESET_SETTING_INVALID, HOUSE_PERMISSION_PRESET_SETTING_VISITOR, HOUSE_PERMISSION_PRESET_SETTING_LIMITED_VISITOR, HOUSE_PERMISSION_PRESET_SETTING_DECORATOR},
+	AccessValuesList = {[1] = HOUSE_PERMISSION_PRESET_SETTING_INVALID, [2] = HOUSE_PERMISSION_PRESET_SETTING_VISITOR, [3] = HOUSE_PERMISSION_PRESET_SETTING_LIMITED_VISITOR, [4] = HOUSE_PERMISSION_PRESET_SETTING_DECORATOR},
+	AccessNameLookup = {[0] = "No Access", [1] = "Decorator", [2] = "Visitor", [3] = "Limited Visitor"},
 }
 
 GH.AccountWide = {
@@ -474,6 +475,8 @@ function GH.PermissionsEditMenuInit()
 	GH.CurrentTab:SetHandler("OnMouseExit", function() end)
 	GH.CurrentTab:GetNamedChild("BG"):SetHidden(false)
 	GH.CurrentTab:SetState(BSTATE_PRESSED, true)
+	GH.HouseSelectDropDownInit()
+	GH.DefaultAccessDropDownInit()
 end
 
 function GH.PermissionsEditMenuHide()
@@ -488,19 +491,20 @@ function GH.PermissionsEditMenuHide()
 				end
 			end
 		end
+		GH.UpdateDefaultAccessDropDown()
 	end
 end
 
 function GH.HouseSelectDropDownInit()
-	local profileComboBox = WM:CreateControlFromVirtual("GH_PanelHouseSelectDropdown", GH_Panel, "GH_DropdownTemplate")
+	local profileComboBox = WM:CreateControlFromVirtual("GH_PanelHouseSelectDropdown", GH_Panel, "GHDropdownTemplate")
 	profileComboBox:ClearAnchors()
 	profileComboBox:SetDimensions(256, 30)
 	profileComboBox:SetAnchor(TOP, GH_Panel, TOP, 0, 30)
 	GH.HouseSelectDropDown = ZO_ComboBox_ObjectFromContainer(profileComboBox)
-	GH.UpdateDropDownList()
+	GH.UpdateHouseSelectDropDownList()
 end
 
-function GH.UpdateDropDownList()
+function GH.UpdateHouseSelectDropDownList()
 	GH.HouseSelectDropDown:ClearItems()
 	for i,v in pairs(GH.HouseData) do
 		if v.unlocked then
@@ -509,6 +513,31 @@ function GH.UpdateDropDownList()
 		end
 	end
 	GH.HouseSelectDropDown:SelectFirstItem()
+end
+
+function GH.DefaultAccessDropDownInit()
+	local profileComboBox = WM:CreateControlFromVirtual("GH_PanelDefaultAccessDropDownInit", GH_PanelSettingsGeneralTab, "GHDropdownTemplate")
+	profileComboBox:ClearAnchors()
+	profileComboBox:SetDimensions(150, 30)
+	profileComboBox:SetAnchor(TOPRIGHT, GH_PanelSettingsGeneralTab, TOPRIGHT, -4, 2)
+	GH.DefaultAccessDropDown = ZO_ComboBox_ObjectFromContainer(profileComboBox)
+	GH.UpdateDefaultAccessDropDown()
+end
+
+function GH.UpdateDefaultAccessDropDown()
+	GH.DefaultAccessDropDown:ClearItems()
+	for i,v in ipairs(GH.Const.AccessChoicesList) do
+		local itemEntry = GH.DefaultAccessDropDown:CreateItemEntry(v, function() AddHousingPermission(GH.housePermID, HOUSE_PERMISSION_USER_GROUP_GENERAL, true, GH.Const.AccessValuesList[i], false, "") end)
+		GH.DefaultAccessDropDown:AddItem(itemEntry)
+	end
+	local type = GetHousingPermissionPresetType(GH.housePermID, HOUSE_PERMISSION_USER_GROUP_GENERAL, 1)
+	local typeName = GH.Const.AccessNameLookup[type]
+	for i,v in ipairs(GH.DefaultAccessDropDown.m_sortedItems) do
+		if v.name == typeName then
+			GH.DefaultAccessDropDown:SetSelected(i)
+			break
+		end
+	end
 end
 
 function GH_CHANGE_TAB(tab)
@@ -522,6 +551,18 @@ function GH_CHANGE_TAB(tab)
 	GH.CurrentTab:GetNamedChild("BG"):SetHidden(true)
 	GH.CurrentTab:SetState(BSTATE_NORMAL, false)
 	GH.CurrentTab = tab
+end
+
+function GH_EDIT_DIALOGUE(self, button, upInside, ctrl, alt, shift)
+	if upInside then
+		PlaySound(SOUNDS.DEFAULT_CLICK)
+		GH.SendToChat(self:GetName())
+	end
+end
+
+function GH_DEFAULT_ACCESS_APPLY_ALL()
+	local type = GetHousingPermissionPresetType(GH.housePermID, HOUSE_PERMISSION_USER_GROUP_GENERAL, 1)
+	AddHousingPermission(GH.housePermID, HOUSE_PERMISSION_USER_GROUP_GENERAL, true, type, true, "")
 end
 
 
@@ -845,7 +886,6 @@ function GH.Initialize()
 	GH.UpdateGuildInfo()
 	GH.UpdateHouseData()
 	GH.CreateSettingsWindow()
-	GH.HouseSelectDropDownInit()
 	GH.PermissionsEditMenuInit()
 	
 	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_1", GetString(GO_HOME_HotkeyLabel) .. "1")

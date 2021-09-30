@@ -20,6 +20,7 @@
 
     <!-- Tab Template -->
     <Button name="GHTabTemplate" font="ZoFontWinH3" horizontalAlignment="RIGHT" verticalAlignment="CENTER" clickSound="Click" virtual="true">
+      <HitInsets right="4" />
       <Dimensions x="100" y="25" />
       <PressedOffset x="-1" y="1" />
       <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
@@ -35,40 +36,36 @@
     </Button>
     
     <!-- Dropdown Template -->
-    <Control name="GH_DropdownTemplate" inherits="ZO_ScrollableComboBox" virtual="true" layer="1" level="0">
+    <Control name="GHDropdownTemplate" inherits="ZO_ScrollableComboBox" virtual="true" layer="1" level="0">
       <OnInitialized>
         ZO_ScrollableComboBox:New(self)
       </OnInitialized>
     </Control>
     
     <!-- Row Template -->
-    <Button name="GH_RowTemplate" text="@name/guild" font="ZoFontGameSmall" horizontalAlignment="LEFT" verticalAlignment="CENTER" clickSound="Click" virtual="true" layer="2" level="2">
-      <Dimensions x="410" y="20" />
-      <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
-      <OnMouseEnter>
-        self:GetNamedChild("BG"):SetHidden(false)
-        self:GetNamedChild("Access"):SetState(BSTATE_PRESSED, true)
-      </OnMouseEnter>
-      <OnMouseExit>
-        self:GetNamedChild("BG"):SetHidden(true)
-        self:GetNamedChild("Access"):SetState(BSTATE_NORMAL, true)
-      </OnMouseExit>
-      <OnClicked>  </OnClicked>
+    <Control name="GHRowTemplate" mouseEnabled="true" virtual="true" layer="2" level="0">
+      <Dimensions x="385" y="25" />
+      <OnMouseEnter> self:GetNamedChild("BG"):SetHidden(false) </OnMouseEnter>
+      <OnMouseExit> self:GetNamedChild("BG"):SetHidden(true) </OnMouseExit>
+      <OnMouseUp> GH_EDIT_DIALOGUE(self, button, upInside, ctrl, alt, shift) </OnMouseUp>
       <Controls>
         
         <Backdrop name="$(parent)BG" centerColor="F49B42" edgeColor="F49B42" hidden="true" layer="2" level="0">
           <AnchorFill />
         </Backdrop>
+
+        <Label name="$(parent)Name" text="01234567890123456789012345678901234567890123456789" font="ZoFontGame" color="FFFFFF" horizontalAlignment="LEFT" verticalAlignment="CENTER" wrapMode="ELLIPSIS" layer="2" level="1">
+          <Dimensions x="266" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="4" offsetY="0" />
+        </Label>
         
-        <Button name="$(parent)Access" text="access" font="ZoFontGameSmall" horizontalAlignment="LEFT" verticalAlignment="CENTER" layer="1" level="1">
-          <Dimensions x="75" y="20" />
-          <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0" />
-          <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
-          <ButtonState state="BSTATE_NORMAL" locked="true" />
-        </Button>
+        <Label name="$(parent)Access" text="Limited Visitor" font="ZoFontGame" color="FFFFFF" horizontalAlignment="LEFT" verticalAlignment="CENTER" wrapMode="ELLIPSIS" layer="2" level="1">
+          <Dimensions x="149" />
+          <Anchor point="TOPLEFT" relativeTo="$(parent)Name" relativePoint="TOPRIGHT" offsetX="4" offsetY="0" />
+        </Label>
         
       </Controls>
-    </Button>
+    </Control>
     
 
     <!-- Permissions Edit Box Main Window -->
@@ -112,13 +109,13 @@
           <Controls>
 
             <!-- Backdrop for settings tabs -->
-            <Backdrop name="$(parent)BG" centerColor="77000000" edgeColor="77000000" layer="1" level="0">
+            <Backdrop name="$(parent)BG" centerColor="AA000000" edgeColor="AA000000" layer="1" level="0">
               <AnchorFill />
             </Backdrop>
 
             <!-- General Tab Button -->
             <Button name="$(parent)General" inherits="GHTabTemplate" text="General" layer="1" level="0">
-              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="-4" offsetY="0" />
+              <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="0" offsetY="0" />
               <OnClicked> GH_CHANGE_TAB(self) </OnClicked>
             </Button>
 
@@ -151,8 +148,9 @@
               <AnchorFill />
               <Controls>
 
-                <Label name="$(parent)Label" font="ZoFontWinH3" text="General Tab">
-                  <AnchorFill />
+                <Label name="$(parent)DefaultVisitorLabel" text="Default Visitor Access" font="ZoFontGame" color="FFFFFF" horizontalAlignment="LEFT" verticalAlignment="CENTER" layer="1" level="2">
+                  <Dimensions x="200" />
+                  <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="4" offsetY="2" />
                 </Label>
 
               </Controls>
