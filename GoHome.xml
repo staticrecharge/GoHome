@@ -42,11 +42,14 @@
     </Control>
     
     <!-- Row Template -->
-    <Button name="GH_RowTemplate" text="@name/guild" font="ZoFontGameSmall" horizontalAlignment="LEFT" verticalAlignment="CENTER" clickSound="Click" virtual="true" layer="2" level="1">
+    <Button name="GH_RowTemplate" text="@name/guild" font="ZoFontGameSmall" horizontalAlignment="LEFT" verticalAlignment="CENTER" clickSound="Click" virtual="true" layer="2" level="2">
       <Dimensions x="410" y="20" />
-      <PressedOffset x="-1" y="1" />
+      <PressedOffset x="1" y="1" />
       <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
-      <OnMouseEnter> self:GetNamedChild("BG"):SetHidden(false) </OnMouseEnter>
+      <OnMouseEnter>
+        self:GetNamedChild("BG"):SetHidden(false)
+        self:GetNamedChild("BG"):SetHidden(false)
+      </OnMouseEnter>
       <OnMouseExit> self:GetNamedChild("BG"):SetHidden(true) </OnMouseExit>
       <OnClicked>  </OnClicked>
       <Controls>
@@ -55,10 +58,13 @@
           <AnchorFill />
         </Backdrop>
         
-        <Label name="$(parent)Access" text="access" font="ZoFontGameSmall" horizontalAlignment="LEFT" verticalAlignment="CENTER" layer="2" level="1">
-          <Dimensions x="75" />
+        <Button name="$(parent)Access" text="access" font="ZoFontGameSmall" horizontalAlignment="LEFT" verticalAlignment="CENTER" layer="1" level="1">
+          <Dimensions x="75" y="20" />
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="0" offsetY="0" />
-        </Label>
+          <PressedOffset x="1" y="1" />
+          <FontColors normalColor="F49B42" mouseOverColor="FCD9B6" pressedColor="FCD9B6" />
+          <ButtonState state="BSTATE_NORMAL" locked="true" />
+        </Button>
         
       </Controls>
     </Button>
