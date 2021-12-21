@@ -69,7 +69,7 @@
     
 
     <!-- Permissions Edit Box Main Window -->
-    <TopLevelControl name="GH_Panel" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="false">
+    <TopLevelControl name="GH_Panel" mouseEnabled="true" movable="true" clampedToScreen="true" hidden="true">
       <Dimensions x="512" y ="256" />
       <Anchor point="CENTER" relativeTo="GuiRoot" relativePoint="CENTER" offsetX="0" offsetY="0" />
       <Controls>
@@ -89,7 +89,7 @@
         </Texture>
 
         <!-- Window Title -->
-        <Label name="$(parent)Title" font="ZoFontWinH2" color="F49B42" text="Go Home - Permissions Editor" horizontalAlignment="CENTER" verticalAlignment="CENTER" layer="1" level="0">
+        <Label name="$(parent)Title" font="ZoFontWinH2" color="F49B42" text="Go Home: Permissions Editor" horizontalAlignment="CENTER" verticalAlignment="CENTER" layer="1" level="0">
           <Anchor point="TOPLEFT" relativeTo="$(parent)" relativePoint="TOPLEFT" offsetX="2" offsetY="2" />
           <Anchor point="TOPRIGHT" relativeTo="$(parent)" relativePoint="TOPRIGHT" offsetX="-2" offsetY="2" />
         </Label>
@@ -161,9 +161,12 @@
               <AnchorFill />
               <Controls>
 
-                <Label name="$(parent)Label" font="ZoFontWinH3" text="Visitor Tab">
+                <Control name="$(parent)ScrollBox" inherits="ZO_ScrollContainer">
                   <AnchorFill />
-                </Label>
+                  <OnInitialized>
+                    ZO_Scroll_Initialize(self)
+                  </OnInitialized>
+                </Control>
                 
               </Controls>
             </Control>

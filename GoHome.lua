@@ -185,6 +185,10 @@ GH.Character = {
 GH.HouseData = {}
 GH.GuildIndexes = {}
 GH.GuildNames = {}
+GH.Visitors = {}
+GH.BanList = {}
+GH.Guild = {}
+GH.GuildBan = {}
 GH.hotkeyIndex = 1
 GH.settingsPanelCreated = false
 GH.housePermID = nil
@@ -240,8 +244,8 @@ function GH.GetGuildLeader(guildID)
 end
 
 function GH.Debug()
-	local names = GH.GetAllHouseNames()
-	d(names)
+	local List = GH.GetListPerms(1, HOUSE_PERMISSION_USER_GROUP_INDIVIDUAL)
+	d(List)
 end
 
 function GH.ListHotkeyedHouses()
@@ -440,32 +444,6 @@ function GH.GetCurrentHouseInfo()
 	end
 end
 
-function GH.SetDefaultVisitorAccess(permission, allHouses)
-	AddHousingPermission(GH.permIndex, HOUSE_PERMISSION_USER_GROUP_GENERAL, true, permission, allHouses)
-end
-
-function GH.GetListPermNames(id, permGroup)
-	local num = GetNumHousingPermissions(id, permGroup)
-	local Names = {}
-	if num > 0 then
-		for i=1, num do
-			table.insert(Names, GetHousingUserGroupDisplayName(id, permGroup, i))
-		end
-	end
-	return Names
-end
-
-function GH.GetListPermIndexes(id, permGroup)
-	local num = GetNumHousingPermissions(id, permGroup)
-	local Indexes = {}
-	if num > 0 then
-		for i=1, num do
-			table.insert(Indexes, i)
-		end
-	end
-	return Indexes
-end
-
 
 --[[----------------------------------------------
 Housing Permissions Functions
@@ -475,8 +453,8 @@ function GH.PermissionsEditMenuInit()
 	GH.CurrentTab:SetHandler("OnMouseExit", function() end)
 	GH.CurrentTab:GetNamedChild("BG"):SetHidden(false)
 	GH.CurrentTab:SetState(BSTATE_PRESSED, true)
-	GH.HouseSelectDropDownInit()
 	GH.DefaultAccessDropDownInit()
+	GH.HouseSelectDropDownInit()
 end
 
 function GH.PermissionsEditMenuHide()
@@ -495,6 +473,14 @@ function GH.PermissionsEditMenuHide()
 	end
 end
 
+function GH.UpdatePermissionsTabs()
+	GH.UpdateDefaultAccessDropDown()
+	--GH.UpdateVisitorTab()
+	--GH.UpdateBanListTab()
+	--GH.UpdateGuildTab()
+	--GH.UpdateGuildBanTab()
+end
+
 function GH.HouseSelectDropDownInit()
 	local profileComboBox = WM:CreateControlFromVirtual("GH_PanelHouseSelectDropdown", GH_Panel, "GHDropdownTemplate")
 	profileComboBox:ClearAnchors()
@@ -508,7 +494,7 @@ function GH.UpdateHouseSelectDropDownList()
 	GH.HouseSelectDropDown:ClearItems()
 	for i,v in pairs(GH.HouseData) do
 		if v.unlocked then
-			local itemEntry = GH.HouseSelectDropDown:CreateItemEntry(v.name, function() GH_PanelBGTexture:SetTexture(GH.HouseData[i].texture) GH.housePermID = i end)
+			local itemEntry = GH.HouseSelectDropDown:CreateItemEntry(v.name, function() GH_PanelBGTexture:SetTexture(GH.HouseData[i].texture) GH.housePermID = i GH.UpdatePermissionsTabs() end)
 			GH.HouseSelectDropDown:AddItem(itemEntry)
 		end
 	end
@@ -553,6 +539,32 @@ function GH_CHANGE_TAB(tab)
 	GH.CurrentTab = tab
 end
 
+function GH.SetDefaultVisitorAccess(permission)
+	AddHousingPermission(GH.permIndex, HOUSE_PERMISSION_USER_GROUP_GENERAL, true, permission, false)
+end
+
+function GH.GetListPerms(id, permGroup)
+	local num = GetNumHousingPermissions(id, permGroup)
+	local List = {}
+	if num > 0 then
+		for i=1, num do
+			local entry = {name = GetHousingUserGroupDisplayName(id, permGroup, i), permission = GetHousingPermissionPresetType(id, permGroup, i), index = i}
+			table.insert(List, entry)
+		end
+	end
+	return List
+end
+
+function GH.UpdateVisitorTab()
+	local id = GH.housePermID
+	local List = GetListPerms(id, HOUSE_PERMISSION_USER_GROUP_INDIVIDUAL)
+	local num = #List
+	for i,v in ipairs(List) do
+		if v.permission ~= HOUSE_PERMISSION_PRESET_SETTING_INVALID then
+		end		
+	end	
+end
+
 function GH_EDIT_DIALOGUE(self, button, upInside, ctrl, alt, shift)
 	if upInside then
 		PlaySound(SOUNDS.DEFAULT_CLICK)
@@ -560,9 +572,8 @@ function GH_EDIT_DIALOGUE(self, button, upInside, ctrl, alt, shift)
 	end
 end
 
-function GH_DEFAULT_ACCESS_APPLY_ALL()
-	local type = GetHousingPermissionPresetType(GH.housePermID, HOUSE_PERMISSION_USER_GROUP_GENERAL, 1)
-	AddHousingPermission(GH.housePermID, HOUSE_PERMISSION_USER_GROUP_GENERAL, true, type, true, "")
+function GH.ScrollListUpdate(parent, pool, data, prefix)
+	local control = WM:CreateControlFromVirtual(prefix .. "PermData", GH_PanelVisitorTabScrollBox, "GHRowTemplate", i)
 end
 
 
@@ -819,7 +830,7 @@ function GH.CreateSettingsWindow()
     tooltip = "",
     width = "half",
 	}
-	i = i + 1
+	--[[i = i + 1
 	optionsData[i] = {
 		type = "header",
 		name = "House Permissions",
@@ -831,7 +842,7 @@ function GH.CreateSettingsWindow()
     func = function() GH.PermissionsEditMenuHide() SLASH_COMMANDS["/ghmenu"]("") end,
     tooltip = "",
     width = "full",
-	}
+	}]]--
 	i = i + 1
 	optionsData[i] = {
 		type = "header",
@@ -888,16 +899,16 @@ function GH.Initialize()
 	GH.CreateSettingsWindow()
 	GH.PermissionsEditMenuInit()
 	
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_1", GetString(GO_HOME_HotkeyLabel) .. "1")
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_2", GetString(GO_HOME_HotkeyLabel) .. "2")
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_3", GetString(GO_HOME_HotkeyLabel) .. "3")
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_4", GetString(GO_HOME_HotkeyLabel) .. "4")
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_5", GetString(GO_HOME_HotkeyLabel) .. "5")
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_6", GetString(GO_HOME_HotkeyLabel) .. "6")
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_7", GetString(GO_HOME_HotkeyLabel) .. "7")
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_8", GetString(GO_HOME_HotkeyLabel) .. "8")
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_9", GetString(GO_HOME_HotkeyLabel) .. "9")
-	ZO_CreateStringId("BINDING_NAME_GH_HOTKEY_10", GetString(GO_HOME_HotkeyLabel) .. "10")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_1", GetString(GO_HOME_HotkeyLabel) .. "1")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_2", GetString(GO_HOME_HotkeyLabel) .. "2")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_3", GetString(GO_HOME_HotkeyLabel) .. "3")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_4", GetString(GO_HOME_HotkeyLabel) .. "4")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_5", GetString(GO_HOME_HotkeyLabel) .. "5")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_6", GetString(GO_HOME_HotkeyLabel) .. "6")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_7", GetString(GO_HOME_HotkeyLabel) .. "7")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_8", GetString(GO_HOME_HotkeyLabel) .. "8")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_9", GetString(GO_HOME_HotkeyLabel) .. "9")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_10", GetString(GO_HOME_HotkeyLabel) .. "10")
 
 	SLASH_COMMANDS["/gohome"] = GH.CommandParse
 	SLASH_COMMANDS["/gh"] = GH.CommandParse
