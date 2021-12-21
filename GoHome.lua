@@ -709,13 +709,13 @@ function GH.CreateSettingsWindow()
 	i = i + 1
 	optionsData[i] = {
 		type = "dropdown",
-		name = "Hotkey",
+		name = GetString(GO_HOME_HotkeyLabel),
 		choices = {[1] = 1, [2] = 2, [3] = 3, [4] = 4, [5] = 5, [6] = 6, [7] = 7, [8] = 8, [9] = 9, [10] = 10,},
 		getFunc = function() return GH.hotkeyIndex end,
 		setFunc = function(var) GH.hotkeyIndex = var end,
 		width = "half",
 		scrollable = true,
-		tooltip = "Select which hotkey to edit.",
+		tooltip = GetString(GO_HOME_TooltipHotkeySelection),
 	}
 	i = i + 1
 	optionsData[i] = {
@@ -825,7 +825,7 @@ function GH.CreateSettingsWindow()
 	i = i + 1
 	optionsData[i] = {
 		type = "button",
-    name = "Clear Key Binding",
+    name = GetString(GO_HOME_SettingsClearHotkeyLabel),
     func = function() GH.AccountWide.SavedVars[GH.hotkeyIndex] = GH.AccountWide.Defaults[GH.hotkeyIndex] end,
     tooltip = "",
     width = "half",
@@ -899,16 +899,16 @@ function GH.Initialize()
 	GH.CreateSettingsWindow()
 	GH.PermissionsEditMenuInit()
 	
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_1", GetString(GO_HOME_HotkeyLabel) .. "1")
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_2", GetString(GO_HOME_HotkeyLabel) .. "2")
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_3", GetString(GO_HOME_HotkeyLabel) .. "3")
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_4", GetString(GO_HOME_HotkeyLabel) .. "4")
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_5", GetString(GO_HOME_HotkeyLabel) .. "5")
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_6", GetString(GO_HOME_HotkeyLabel) .. "6")
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_7", GetString(GO_HOME_HotkeyLabel) .. "7")
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_8", GetString(GO_HOME_HotkeyLabel) .. "8")
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_9", GetString(GO_HOME_HotkeyLabel) .. "9")
-	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_10", GetString(GO_HOME_HotkeyLabel) .. "10")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_1", GetString(GO_HOME_HotkeyLabel) .. " 1")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_2", GetString(GO_HOME_HotkeyLabel) .. " 2")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_3", GetString(GO_HOME_HotkeyLabel) .. " 3")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_4", GetString(GO_HOME_HotkeyLabel) .. " 4")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_5", GetString(GO_HOME_HotkeyLabel) .. " 5")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_6", GetString(GO_HOME_HotkeyLabel) .. " 6")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_7", GetString(GO_HOME_HotkeyLabel) .. " 7")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_8", GetString(GO_HOME_HotkeyLabel) .. " 8")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_9", GetString(GO_HOME_HotkeyLabel) .. " 9")
+	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_10", GetString(GO_HOME_HotkeyLabel) .. " 10")
 
 	SLASH_COMMANDS["/gohome"] = GH.CommandParse
 	SLASH_COMMANDS["/gh"] = GH.CommandParse

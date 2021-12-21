@@ -61,11 +61,12 @@ ZO_CreateStringId("GO_HOME_SettingsChatMessagesLabel", "Messages de chat")
 ZO_CreateStringId("GO_HOME_SettingsHouseNicknamesLabel", "Surnoms de maison")
 ZO_CreateStringId("GO_HOME_SettingsReloadUILabel", "Recharger l'interface utilisateur")
 ZO_CreateStringId("GO_HOME_SettingsOutsideLabel", "Dehors")
+ZO_CreateStringId("GO_HOME_SettingsClearHotkeyLabel", "Effacer la liaison des touches")
 
 --[[
 Hotkey translations
 ]]--
-ZO_CreateStringId("GO_HOME_HotkeyLabel", "Hotkey ")
+ZO_CreateStringId("GO_HOME_HotkeyLabel", "Raccourci")
 
 --[[
 Tooltip translations
@@ -81,3 +82,4 @@ ZO_CreateStringId("GO_HOME_TooltipChatMessages", "Tous les messages de discussio
 ZO_CreateStringId("GO_HOME_TooltipHouseNicknames", "Si cette option est activée, les noms des maisons que vous possédez seront remplacés par leurs surnoms dans cet addon. Vous pouvez utiliser cette fonctionnalité pour \"renommer\" vos maisons.")
 ZO_CreateStringId("GO_HOME_TooltipNeedToReloadUI", "Ce paramètre est spécifique au personnage.")
 ZO_CreateStringId("GO_HOME_TooltipOutside", "Sélectionnez pour vous rendre à l'extérieur de la maison.")
+ZO_CreateStringId("GO_HOME_TooltipHotkeySelection", "Sélectionnez le raccourci clavier à modifier.")

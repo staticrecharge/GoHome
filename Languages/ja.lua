@@ -60,6 +60,7 @@ ZO_CreateStringId("GO_HOME_SettingsChatMessagesLabel", "チャットメッセー
 ZO_CreateStringId("GO_HOME_SettingsHouseNicknamesLabel", "家のニックネーム")
 ZO_CreateStringId("GO_HOME_SettingsReloadUILabel", "UIをリロードする")
 ZO_CreateStringId("GO_HOME_SettingsOutsideLabel", "家の外")
+ZO_CreateStringId("GO_HOME_SettingsClearHotkeyLabel", "キーバインディングをクリア")
 
 --[[
 Hotkey translations
@@ -81,3 +82,4 @@ ZO_CreateStringId("GO_HOME_TooltipHouseNicknames", "オンにすると、この�
 ZO_CreateStringId("GO_HOME_TooltipNeedToReloadUI", "この変更はUIをリロードする後に行われます。")
 ZO_CreateStringId("GO_HOME_TooltipCharacterHouse", "この設定はキャラクター固有です。")
 ZO_CreateStringId("GO_HOME_TooltipOutside", "家の外にテレポートする")
+ZO_CreateStringId("GO_HOME_TooltipHotkeySelection", "編集するホットキーを選択します。")

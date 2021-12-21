@@ -61,11 +61,12 @@ ZO_CreateStringId("GO_HOME_SettingsChatMessagesLabel", "Chat Messages")
 ZO_CreateStringId("GO_HOME_SettingsHouseNicknamesLabel", "House Nicknames")
 ZO_CreateStringId("GO_HOME_SettingsReloadUILabel", "Reload UI")
 ZO_CreateStringId("GO_HOME_SettingsOutsideLabel", "Outside")
+ZO_CreateStringId("GO_HOME_SettingsClearHotkeyLabel", "Clear Key Binding")
 
 --[[
 Hotkey translations
 ]]--
-ZO_CreateStringId("GO_HOME_HotkeyLabel", "Hotkey ")
+ZO_CreateStringId("GO_HOME_HotkeyLabel", "Hotkey")
 
 --[[
 Tooltip translations
@@ -82,3 +83,4 @@ ZO_CreateStringId("GO_HOME_TooltipHouseNicknames", "If turned on the names of ho
 ZO_CreateStringId("GO_HOME_TooltipNeedToReloadUI", "Will take effect after the UI is reloaded.")
 ZO_CreateStringId("GO_HOME_TooltipCharacterHouse", "This setting is character specific.")
 ZO_CreateStringId("GO_HOME_TooltipOutside", "Select to travel to the outside of the house.")
+ZO_CreateStringId("GO_HOME_TooltipHotkeySelection", "Select which hotkey to edit.")
