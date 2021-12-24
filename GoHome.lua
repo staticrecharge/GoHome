@@ -897,7 +897,7 @@ function GH.Initialize()
 	GH.UpdateGuildInfo()
 	GH.UpdateHouseData()
 	GH.CreateSettingsWindow()
-	GH.PermissionsEditMenuInit()
+	--GH.PermissionsEditMenuInit()
 	
 	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_1", GetString(GO_HOME_HotkeyLabel) .. " 1")
 	ZO_CreateStringId("SI_BINDING_NAME_GH_HOTKEY_2", GetString(GO_HOME_HotkeyLabel) .. " 2")
