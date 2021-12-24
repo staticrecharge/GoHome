@@ -921,6 +921,22 @@ function GH.Initialize()
 	EM:RegisterForEvent(GH.addonName, EVENT_COLLECTIBLE_NOTIFICATION_NEW, GH.OnCollectibleNotificationNew)
 end
 
+function GH.CommandParse(args)
+	local Options = {}
+	local searchResult = {string.match(args, "^(%S*)%s*(.-)$")}
+	for i,v in pairs(searchResult) do
+		if (v ~= nil and v~= "") then
+			Options[i] = string.lower(v)
+		end
+	end
+	if #Options == 0 then
+		GH.SendToChat(GetString(GO_HOME_TravelToPlayerPrimaryHouse) .. (GH.AccountWide.SavedVars.useNicknames and GH.HouseNickname(GH.GetPrimaryHouse()) or GH.HouseName(GH.GetPrimaryHouse())))
+		GH.Travel(GH.GetPrimaryHouse(), false)
+	else
+		GH_HOTKEY_PRESSED(tonumber(Options[1]))
+	end
+end
+
 function GH.OnAddonLoaded(event, addonName)
 	if addonName == GH.addonName then
 		GH.Initialize()
