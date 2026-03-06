@@ -6,7 +6,7 @@
     {
       "label": "copy",
       "type": "shell",
-      "command": "robocopy 'D:\\Documents\\Add-on Dev\\GoHome' 'D:\\Documents\\Elder Scrolls Online\\live\\AddOns\\GoHome' GoHome.txt GoHome.lua GoHome.xml changelog.readme",
+      "command": "robocopy 'E:\\Documents\\Add-on Dev\\GoHome' 'E:\\Documents\\Elder Scrolls Online\\live\\AddOns\\GoHome' GoHome.addon GoHome.lua Houses.lua Settings.lua Permissions.lua changelog.readme",
       "problemMatcher": [],
       "group": {
         "kind": "build",
@@ -16,7 +16,7 @@
     {
       "label": "copy2",
       "type": "shell",
-      "command": "robocopy 'D:\\Documents\\Add-on Dev\\GoHome\\Languages' 'D:\\Documents\\Elder Scrolls Online\\live\\AddOns\\GoHome\\Languages'",
+      "command": "robocopy 'E:\\Documents\\Add-on Dev\\GoHome\\Languages' 'E:\\Documents\\Elder Scrolls Online\\live\\AddOns\\GoHome\\Languages'",
       "problemMatcher": [],
       "group": {
         "kind": "build",

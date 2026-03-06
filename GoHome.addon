@@ -1,9 +1,9 @@
-## Title: |cf49b42Go Home|r 8.0.0
+## Title: |cf49b42Go Home|r
 ## Author: |CFF0000Static_Recharge|r
-## Version: 8.0.0
-## AddOnVersion: 8
-## APIVersion: 101032
-## DependsOn: LibAddonMenu-2.0 LibCustomMenu
+## Version: 9.0.0
+## AddOnVersion: 9
+## APIVersion: 101048
+## DependsOn: LibStatic>=1 LibAddonMenu-2.0>=41 LibCustomMenu>=730
 ## SavedVariables: GoHomeAccountWideVars GoHomeCharacterVars
 ## Description: Creates hotkeys for you to set to various houses.
 ## IsLibrary: false
@@ -14,13 +14,13 @@
 
 # You can read the full terms at https://account.elderscrollsonline.com/add-on-terms
 
-# This Add-on is not to be duplicated / replicated / borrowed / ported or redistributed without my expresss permission.
-
 # Special thanks to Vestamali, ChirpingBird, renbyrd and Blaize for helping me test things. Also thank you Lari for the Japanese translations.
 
 Languages/en.lua
 Languages/$(language).lua
 
 GoHome.lua
+Houses.lua
+Settings.lua
+Permissions.lua
 Bindings.xml
-GoHome.xml
