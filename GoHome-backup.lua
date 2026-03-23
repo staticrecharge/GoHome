@@ -67,7 +67,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 		[2] = {
@@ -77,7 +77,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 		[3] = {
@@ -87,7 +87,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 		[4] = {
@@ -97,7 +97,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 		[5] = {
@@ -107,7 +107,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 		[6] = {
@@ -117,7 +117,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 		[7] = {
@@ -127,7 +127,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 		[8] = {
@@ -137,7 +137,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 		[9] = {
@@ -147,7 +147,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 		[10] = {
@@ -157,7 +157,7 @@ GH.AccountWide = {
 			specificHouse = nil,
 			accountNamePrimaryHouse = true,
 			accountNameSpecificHouse = nil,
-			guildID = nil,
+			guildId = nil,
 			outside = false,
 		},
 	},
@@ -167,16 +167,16 @@ GH.AccountWide = {
 
 GH.Character = {
 	Defaults = {
-		[1] = {houseID = nil, outside = false},
-		[2] = {houseID = nil, outside = false},
-		[3] = {houseID = nil, outside = false},
-		[4] = {houseID = nil, outside = false},
-		[5] = {houseID = nil, outside = false},
-		[6] = {houseID = nil, outside = false},
-		[7] = {houseID = nil, outside = false},
-		[8] = {houseID = nil, outside = false},
-		[9] = {houseID = nil, outside = false},
-		[10] = {houseID = nil, outside = false},
+		[1] = {houseId = nil, outside = false},
+		[2] = {houseId = nil, outside = false},
+		[3] = {houseId = nil, outside = false},
+		[4] = {houseId = nil, outside = false},
+		[5] = {houseId = nil, outside = false},
+		[6] = {houseId = nil, outside = false},
+		[7] = {houseId = nil, outside = false},
+		[8] = {houseId = nil, outside = false},
+		[9] = {houseId = nil, outside = false},
+		[10] = {houseId = nil, outside = false},
 	},
 	SavedVars = {},
 	varsVersion = 2,
@@ -191,7 +191,7 @@ GH.Guild = {}
 GH.GuildBan = {}
 GH.hotkeyIndex = 1
 GH.settingsPanelCreated = false
-GH.housePermID = nil
+GH.housePermId = nil
 
 
 --[[----------------------------------------------
@@ -238,8 +238,8 @@ function GH.UpdateGuildInfo()
 	end
 end
 
-function GH.GetGuildLeader(guildID)
-	local _, _, leaderName = GetGuildInfo(GetGuildId(guildID))
+function GH.GetGuildLeader(guildId)
+	local _, _, leaderName = GetGuildInfo(GetGuildId(guildId))
 	return leaderName
 end
 
@@ -256,7 +256,7 @@ function GH.ListHotkeyedHouses()
 			elseif GH.AccountWide.SavedVars[i].hotkeyType == GH.Const.HotkeyType.specific then
 				GH.SendToChat("[" .. i .. "] - " .. (GH.AccountWide.SavedVars.useNicknames and GH.HouseNickname(GH.AccountWide.SavedVars[i].specificHouse) or GH.HouseName(GH.AccountWide.SavedVars[i].specificHouse)))
 			elseif GH.AccountWide.SavedVars[i].hotkeyType == GH.Const.HotkeyType.character then
-				GH.SendToChat("[" .. i .. "] - " .. (GH.AccountWide.SavedVars[i].useNicknames and GH.HouseNickname(GH.Character.SavedVars[i].houseID) or GH.HouseName(GH.Character.SavedVars[i].houseID)))
+				GH.SendToChat("[" .. i .. "] - " .. (GH.AccountWide.SavedVars[i].useNicknames and GH.HouseNickname(GH.Character.SavedVars[i].houseId) or GH.HouseName(GH.Character.SavedVars[i].houseId)))
 			elseif GH.AccountWide.SavedVars[i].hotkeyType == GH.Const.HotkeyType.accountName then
 				if GH.AccountWide.SavedVars[i].accountNamePrimaryHouse then
 					GH.SendToChat("[" .. i .. "] - " .. GH.AccountWide.SavedVars[i].accountName .. GetString(GO_HOME_TravelToAccountPrimaryEnd))
@@ -264,7 +264,7 @@ function GH.ListHotkeyedHouses()
 					GH.SendToChat("[" .. i .. "] - " .. GH.AccountWide.SavedVars[i].accountName .. GetString(GO_HOME_TravelToAccountSpecificEnd) .. GH.HouseName(GH.AccountWide.SavedVars[i].accountNameSpecificHouse))
 				end
 			elseif GH.AccountWide.SavedVars[i].hotkeyType == GH.Const.HotkeyType.guild then
-				GH.SendToChat("[" .. i .. "] - " .. GH.GuildNames[GH.AccountWide.SavedVars[i].guildID] .. GetString(GO_HOME_TravelToGuildEnd))
+				GH.SendToChat("[" .. i .. "] - " .. GH.GuildNames[GH.AccountWide.SavedVars[i].guildId] .. GetString(GO_HOME_TravelToGuildEnd))
 			end
 		end
 	end
@@ -293,7 +293,7 @@ function GH.UpdateHouseData()
 						nickname = subCatCollectibleData:GetFormattedNickname(),
 						unlocked = unlocked,
 						icon = icon,
-						collectibleID = subCatCollectibleData:GetId(),
+						collectibleId = subCatCollectibleData:GetId(),
 						texture = GetHousePreviewBackgroundImage(subCatCollectibleData:GetReferenceId()),
 					}
 				end
@@ -311,27 +311,27 @@ function GH.IsHouse(collectibleData)
 	return collectibleData:IsCategoryType(COLLECTIBLE_CATEGORY_TYPE_HOUSE)
 end
 
-function GH.HouseName(houseID)
-	return GH.HouseData[houseID].name
+function GH.HouseName(houseId)
+	return GH.HouseData[houseId].name
 end
 
-function GH.HouseNickname(houseID)
-	return GH.HouseData[houseID].nickname
+function GH.HouseNickname(houseId)
+	return GH.HouseData[houseId].nickname
 end
 
-function GH.HouseIsUnlocked(houseID)
-	return GH.HouseData[houseID].unlocked
+function GH.HouseIsUnlocked(houseId)
+	return GH.HouseData[houseId].unlocked
 end
 
 function GH.GetPrimaryHouse()
 	return GetHousingPrimaryHouse()
 end
 
-function GH.SetPrimaryHouse(houseID)
-	return SetHousingPrimaryHouse(houseID)
+function GH.SetPrimaryHouse(houseId)
+	return SetHousingPrimaryHouse(houseId)
 end
 
-function GH.GetOwnedHouseIDs()
+function GH.GetOwnedHouseIds()
 	local Owned = {}
 	for i,v in pairs(GH.HouseData) do
 		if v.unlocked then
@@ -374,7 +374,7 @@ end
 function GH.ListOwnedHouses()
 	for i,v in pairs(GH.HouseData) do
 		if v.unlocked then
-			d("ID: " .. i .. ", CollectibleID: " .. v.collectibleID .. ", Name: " .. v.name)
+			d("Id: " .. i .. ", CollectibleId: " .. v.collectibleId .. ", Name: " .. v.name)
 		end
 	end
 end
@@ -395,7 +395,7 @@ function GH.GetAllHouseNicknames()
 	return Houses
 end
 
-function GH.GetAllHouseIDs()
+function GH.GetAllHouseIds()
 	local Houses = {}
 	for i,v in pairs(GH.HouseData) do
 		table.insert(Houses, i)
@@ -404,12 +404,12 @@ function GH.GetAllHouseIDs()
 end
 
 function GH.CurrentHouseData()
-	local houseID = GetCurrentZoneHouseId()
-	local collectibleID = GetCollectibleIdForHouse(houseID)
-	local name = GetCollectibleName(collectibleID)
-	local nickname = GetCollectibleNickname(collectibleID)
+	local houseId = GetCurrentZoneHouseId()
+	local collectibleId = GetCollectibleIdForHouse(houseId)
+	local name = GetCollectibleName(collectibleId)
+	local nickname = GetCollectibleNickname(collectibleId)
 
-	return houseID, collectibleID, name, nickname
+	return houseId, collectibleId, name, nickname
 end
 
 --[[ GH.Travel(...)
@@ -417,8 +417,8 @@ Handles traveling to various houses.
 Overloaded function:
 - No arguments = Travel to the player's primary house.
 - @name only = Travel to specified player's primary house.
-- HouseID, outside = Travel to the player's specified house (inside or outside).
-- @name and houseID = Travel to the specified house of the specified player. ]]--
+- HouseId, outside = Travel to the player's specified house (inside or outside).
+- @name and houseId = Travel to the specified house of the specified player. ]]--
 function GH.Travel(...)
 	Args = {...}
 	if #Args == 1 then
@@ -431,13 +431,13 @@ function GH.Travel(...)
 end
 
 function GH.GetCurrentHouseInfo()
-	local houseID, collectibleID, name, nickname = GH.CurrentHouseData()
+	local houseId, collectibleId, name, nickname = GH.CurrentHouseData()
 
-	if houseID == 0 then GH.SendToChat(GetString(GO_HOME_PlayerNotInKnownHouse)) else
+	if houseId == 0 then GH.SendToChat(GetString(GO_HOME_PlayerNotInKnownHouse)) else
 		GH.SendToChat(
 			GetString(GO_HOME_CurrentHouseDataTitle),
-			GetString(GO_HOME_HouseIDLabel) .. houseID,
-			GetString(GO_HOME_CollectibleIDLabel) .. collectibleID,
+			GetString(GO_HOME_HouseIdLabel) .. houseId,
+			GetString(GO_HOME_CollectibleIdLabel) .. collectibleId,
 			GetString(GO_HOME_HouseNameLabel) .. name,
 			GetString(GO_HOME_HouseNicknameLabel) .. nickname
 		)
@@ -494,7 +494,7 @@ function GH.UpdateHouseSelectDropDownList()
 	GH.HouseSelectDropDown:ClearItems()
 	for i,v in pairs(GH.HouseData) do
 		if v.unlocked then
-			local itemEntry = GH.HouseSelectDropDown:CreateItemEntry(v.name, function() GH_PanelBGTexture:SetTexture(GH.HouseData[i].texture) GH.housePermID = i GH.UpdatePermissionsTabs() end)
+			local itemEntry = GH.HouseSelectDropDown:CreateItemEntry(v.name, function() GH_PanelBGTexture:SetTexture(GH.HouseData[i].texture) GH.housePermId = i GH.UpdatePermissionsTabs() end)
 			GH.HouseSelectDropDown:AddItem(itemEntry)
 		end
 	end
@@ -513,10 +513,10 @@ end
 function GH.UpdateDefaultAccessDropDown()
 	GH.DefaultAccessDropDown:ClearItems()
 	for i,v in ipairs(GH.Const.AccessChoicesList) do
-		local itemEntry = GH.DefaultAccessDropDown:CreateItemEntry(v, function() AddHousingPermission(GH.housePermID, HOUSE_PERMISSION_USER_GROUP_GENERAL, true, GH.Const.AccessValuesList[i], false, "") end)
+		local itemEntry = GH.DefaultAccessDropDown:CreateItemEntry(v, function() AddHousingPermission(GH.housePermId, HOUSE_PERMISSION_USER_GROUP_GENERAL, true, GH.Const.AccessValuesList[i], false, "") end)
 		GH.DefaultAccessDropDown:AddItem(itemEntry)
 	end
-	local type = GetHousingPermissionPresetType(GH.housePermID, HOUSE_PERMISSION_USER_GROUP_GENERAL, 1)
+	local type = GetHousingPermissionPresetType(GH.housePermId, HOUSE_PERMISSION_USER_GROUP_GENERAL, 1)
 	local typeName = GH.Const.AccessNameLookup[type]
 	for i,v in ipairs(GH.DefaultAccessDropDown.m_sortedItems) do
 		if v.name == typeName then
@@ -556,7 +556,7 @@ function GH.GetListPerms(id, permGroup)
 end
 
 function GH.UpdateVisitorTab()
-	local id = GH.housePermID
+	local id = GH.housePermId
 	local List = GetListPerms(id, HOUSE_PERMISSION_USER_GROUP_INDIVIDUAL)
 	local num = #List
 	for i,v in ipairs(List) do
@@ -606,8 +606,8 @@ function GH_HOTKEY_PRESSED(keyNum)
 		GH.SendToChat(GetString(GO_HOME_TravelToTextStart) .. (GH.AccountWide.SavedVars.useNicknames and GH.HouseNickname(GH.AccountWide.SavedVars[keyNum].specificHouse) or GH.HouseName(GH.AccountWide.SavedVars[keyNum].specificHouse)) .. outside)
 	-- Travel to character house
 	elseif GH.AccountWide.SavedVars[keyNum].hotkeyType == GH.Const.HotkeyType.character then
-		GH.Travel(GH.Character.SavedVars[keyNum].houseID, GH.Character.SavedVars[keyNum].outside)
-		GH.SendToChat(GetString(GO_HOME_TravelToTextStart) .. (GH.AccountWide.SavedVars.useNicknames and GH.HouseNickname(GH.Character.SavedVars[keyNum].houseID) or GH.HouseName(GH.Character.SavedVars[keyNum].houseID)) .. outside)
+		GH.Travel(GH.Character.SavedVars[keyNum].houseId, GH.Character.SavedVars[keyNum].outside)
+		GH.SendToChat(GetString(GO_HOME_TravelToTextStart) .. (GH.AccountWide.SavedVars.useNicknames and GH.HouseNickname(GH.Character.SavedVars[keyNum].houseId) or GH.HouseName(GH.Character.SavedVars[keyNum].houseId)) .. outside)
 	-- Travel to account name house
 	elseif GH.AccountWide.SavedVars[keyNum].hotkeyType == GH.Const.HotkeyType.accountName then
 		-- Account name primary house
@@ -621,7 +621,7 @@ function GH_HOTKEY_PRESSED(keyNum)
 		end
 	-- Travel to guild house
 	elseif GH.AccountWide.SavedVars[keyNum].hotkeyType == GH.Const.HotkeyType.guild then
-		local leader = GH.GetGuildLeader(GH.AccountWide.SavedVars[keyNum].guildID)
+		local leader = GH.GetGuildLeader(GH.AccountWide.SavedVars[keyNum].guildId)
 		-- if the player is the leader then it teleports them to their primary house
 		if leader == GetDisplayName() then
 			GH.Travel(GH.GetPrimaryHouse(), GH.AccountWide.SavedVars[keyNum].outside)
@@ -629,7 +629,7 @@ function GH_HOTKEY_PRESSED(keyNum)
 		-- otherwise teleport to the guild leader's primary house
 		else
 			GH.Travel(leader)
-			GH.SendToChat(GetString(GO_HOME_TravelToTextStart) .. GH.GuildNames[GH.AccountWide.SavedVars[keyNum].guildID] ..GetString(GO_HOME_TravelToGuildEnd))
+			GH.SendToChat(GetString(GO_HOME_TravelToTextStart) .. GH.GuildNames[GH.AccountWide.SavedVars[keyNum].guildId] ..GetString(GO_HOME_TravelToGuildEnd))
 		end
 	end
 end
@@ -692,7 +692,7 @@ function GH.CreateSettingsWindow()
 		type = "dropdown",
 		name = GetString(GO_HOME_SettingsPrimaryHouseLabel),
 		choices = GH.GetNames(),
-		choicesValues = GH.GetOwnedHouseIDs(),
+		choicesValues = GH.GetOwnedHouseIds(),
 		sort = "name-up",
 		getFunc = function() return GH.GetPrimaryHouse() end,
 		setFunc = function(var) GH.SetPrimaryHouse(var) end,
@@ -734,7 +734,7 @@ function GH.CreateSettingsWindow()
 		type = "dropdown",
 		name = GetString(GO_HOME_SettingsSpecificHouseLabel),
 		choices = GH.GetNames(),
-		choicesValues = GH.GetOwnedHouseIDs(),
+		choicesValues = GH.GetOwnedHouseIds(),
 		sort = "name-up",
 		getFunc = function() return GH.AccountWide.SavedVars[GH.hotkeyIndex].specificHouse end,
 		setFunc = function(var) GH.AccountWide.SavedVars[GH.hotkeyIndex].specificHouse = var end,
@@ -749,10 +749,10 @@ function GH.CreateSettingsWindow()
 		type = "dropdown",
 		name = GetString(GO_HOME_SettingsCharacterHouseLabel),
 		choices = GH.GetNames(),
-		choicesValues = GH.GetOwnedHouseIDs(),
+		choicesValues = GH.GetOwnedHouseIds(),
 		sort = "name-up",
-		getFunc = function() return GH.Character.SavedVars[GH.hotkeyIndex].houseID end,
-		setFunc = function(var) GH.Character.SavedVars[GH.hotkeyIndex].houseID = var end,
+		getFunc = function() return GH.Character.SavedVars[GH.hotkeyIndex].houseId end,
+		setFunc = function(var) GH.Character.SavedVars[GH.hotkeyIndex].houseId = var end,
 		width = "half",
 		scrollable = true,
 		disabled = function() if GH.AccountWide.SavedVars[GH.hotkeyIndex].hotkeyType == GH.Const.HotkeyType.character then return false else return true end end,
@@ -775,7 +775,7 @@ function GH.CreateSettingsWindow()
 		type = "dropdown",
 		name = GetString(GO_HOME_SettingsAccountHouseLabel),
 		choices = GH.GetAllHouseNames(),
-		choicesValues = GH.GetAllHouseIDs(),
+		choicesValues = GH.GetAllHouseIds(),
 		sort = "name-up",
 		scrollable = true,
 		getFunc = function() return GH.AccountWide.SavedVars[GH.hotkeyIndex].accountNameSpecificHouse end,
@@ -803,8 +803,8 @@ function GH.CreateSettingsWindow()
 		name = GetString(GO_HOME_SettingsGuildHouseLabel),
 		choices = GH.GuildNames,
 		choicesValues = GH.GuildIndexes,
-		getFunc = function() return GH.AccountWide.SavedVars[GH.hotkeyIndex].guildID end,
-		setFunc = function(var) GH.AccountWide.SavedVars[GH.hotkeyIndex].guildID = var end,
+		getFunc = function() return GH.AccountWide.SavedVars[GH.hotkeyIndex].guildId end,
+		setFunc = function(var) GH.AccountWide.SavedVars[GH.hotkeyIndex].guildId = var end,
 		width = "half",
 		scrollable = true,
 		disabled = function() if GH.AccountWide.SavedVars[GH.hotkeyIndex].hotkeyType == GH.Const.HotkeyType.guild then return false else return true end end,
@@ -874,10 +874,10 @@ end
 
 function GH.UpdateMenu()
 	if not GH.settingsPanelCreated then return end
-	GH_PrimaryHouseDropdown_LAM:UpdateChoices(GH.GetNames(), GH.GetOwnedHouseIDs())
-	GH_AccountHouseDropdown_LAM:UpdateChoices(GH.GetAllHouseNames(), GH.GetAllHouseIDs())
-	GH_CharacterHouseDropdown_LAM:UpdateChoices(GH.GetNames(), GH.GetOwnedHouseIDs())
-	GH_SpecificHouseDropdown_LAM:UpdateChoices(GH.GetNames(), GH.GetOwnedHouseIDs())
+	GH_PrimaryHouseDropdown_LAM:UpdateChoices(GH.GetNames(), GH.GetOwnedHouseIds())
+	GH_AccountHouseDropdown_LAM:UpdateChoices(GH.GetAllHouseNames(), GH.GetAllHouseIds())
+	GH_CharacterHouseDropdown_LAM:UpdateChoices(GH.GetNames(), GH.GetOwnedHouseIds())
+	GH_SpecificHouseDropdown_LAM:UpdateChoices(GH.GetNames(), GH.GetOwnedHouseIds())
 end
 
 function GH.LAMPanelCreated(panel)
@@ -924,7 +924,7 @@ end
 function GH.CommandParse(args)
 	local Options = {}
 	local searchResult = {string.match(args, "^(%S*)%s*(.-)$")}
-	for i,v in pairs(searchResult) do
+	for i,v in ipairs(searchResult) do
 		if (v ~= nil and v~= "") then
 			Options[i] = string.lower(v)
 		end
@@ -943,7 +943,7 @@ function GH.OnAddonLoaded(event, addonName)
 	end
 end
 
-function GH.OnCollectibleNotificationNew(eventCode, id, notificationID)
+function GH.OnCollectibleNotificationNew(eventCode, id, notificationId)
 	if GetCollectibleCategoryType(id) == COLLECTIBLE_CATEGORY_TYPE_HOUSE then
 		GH.UpdateHouseData()
 		GH.UpdateMenu()

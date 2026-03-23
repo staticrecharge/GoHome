@@ -2,8 +2,8 @@
 ## Author: |CFF0000Static_Recharge|r
 ## Version: 9.0.0
 ## AddOnVersion: 9
-## APIVersion: 101048
-## DependsOn: LibStatic>=1 LibAddonMenu-2.0>=41 LibCustomMenu>=730
+## APIVersion: 101049
+## DependsOn: LibStatic>=210 LibAddonMenu-2.0>=41 LibCustomMenu>=730
 ## SavedVariables: GoHomeAccountWideVars GoHomeCharacterVars
 ## Description: Creates hotkeys for you to set to various houses.
 ## IsLibrary: false

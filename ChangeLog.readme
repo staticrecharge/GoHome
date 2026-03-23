@@ -1,5 +1,7 @@
 9.0.0
   - Added support for LibStatic
+  - Reworked entire codebas, split into manageable files
+  - Added hotkey aliases
 
 8.0.0
   - The list of houses now autopopulates from in game data

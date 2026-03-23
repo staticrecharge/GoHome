@@ -2,34 +2,34 @@
 	<Layer name="SI_KEYBINDINGS_LAYER_GENERAL">
 		<Category name="|cf49b42Go Home|r">
 			<Action name="GH_HOTKEY_1">
-				<Down>GH_HOTKEY_PRESSED(1)</Down>
+				<Down>GoHome:HotkeyPressed(1)</Down>
 			</Action>
 			<Action name="GH_HOTKEY_2">
-				<Down>GH_HOTKEY_PRESSED(2)</Down>
+				<Down>GoHome:HotkeyPressed(2)</Down>
 			</Action>
 			<Action name="GH_HOTKEY_3">
-				<Down>GH_HOTKEY_PRESSED(3)</Down>
+				<Down>GoHome:HotkeyPressed(3)</Down>
 			</Action>
 			<Action name="GH_HOTKEY_4">
-				<Down>GH_HOTKEY_PRESSED(4)</Down>
+				<Down>GoHome:HotkeyPressed(4)</Down>
 			</Action>
 			<Action name="GH_HOTKEY_5">
-				<Down>GH_HOTKEY_PRESSED(5)</Down>
+				<Down>GoHome:HotkeyPressed(5)</Down>
 			</Action>
 			<Action name="GH_HOTKEY_6">
-				<Down>GH_HOTKEY_PRESSED(6)</Down>
+				<Down>GoHome:HotkeyPressed(6)</Down>
 			</Action>
 			<Action name="GH_HOTKEY_7">
-				<Down>GH_HOTKEY_PRESSED(7)</Down>
+				<Down>GoHome:HotkeyPressed(7)</Down>
 			</Action>
 			<Action name="GH_HOTKEY_8">
-				<Down>GH_HOTKEY_PRESSED(8)</Down>
+				<Down>GoHome:HotkeyPressed(8)</Down>
 			</Action>
 			<Action name="GH_HOTKEY_9">
-				<Down>GH_HOTKEY_PRESSED(9)</Down>
+				<Down>GoHome:HotkeyPressed(9)</Down>
 			</Action>
 			<Action name="GH_HOTKEY_10">
-				<Down>GH_HOTKEY_PRESSED(10)</Down>
+				<Down>GoHome:HotkeyPressed(10)</Down>
 			</Action>
 		</Category>
 	</Layer>
